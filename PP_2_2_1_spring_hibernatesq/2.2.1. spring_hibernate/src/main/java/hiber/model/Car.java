@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,16 +16,26 @@ public class Car {
     private String model;
     @Column(name = "series")
     private int series;
+    @Basic
+    private String car_id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+
+
+    @OneToOne(mappedBy = "car")
+    private   User user;
+    public Car(User user) {
+        this.user = user;
+    }
     public Car() {
 
     }
 
-    public Car(String model, int series) {
+    public  Car(String model, int series) {
         this.model = model;
         this.series = series;
     }
@@ -52,17 +63,7 @@ public class Car {
     public Long getId() {
         return id;
     }
-    @Override
-    public String toString() {
-        return
-               "model: " + model + '\'' +
-                         " series: "+
-                  series
-                  ;
-    }
 
-    @Basic
-    private String car_id;
 
     public String getCar_id() {
         return car_id;
@@ -73,6 +74,14 @@ public class Car {
     }
 
     public void setUser(User user1) {
+    }
+    @Override
+    public String toString() {
+        return
+                "model: " + model + '\'' +
+                        " series: "+
+                        series
+                ;
     }
 }
 
