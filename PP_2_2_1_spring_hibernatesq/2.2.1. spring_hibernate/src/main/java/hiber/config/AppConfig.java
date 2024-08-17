@@ -25,7 +25,7 @@ public class AppConfig {
 
     @Autowired
     private Environment env;
-    Properties props = new Properties();
+
 
     @Bean
     public DataSource getDataSource() {
@@ -47,6 +47,7 @@ public class AppConfig {
 
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
+        Properties props = new Properties();
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
